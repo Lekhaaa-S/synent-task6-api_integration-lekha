@@ -17,17 +17,34 @@
         </header>
 
         <section class="card">
-        <h2>Weather Lookup</h2>
-        <div class="search-box">
+        <h2><div class="search-box">
+
             <input
                 type="text"
                 id="cityInput"
-                placeholder="Enter city name"
+                placeholder="Enter any city"
             >
+            <select id="cityDropdown">
+
+                <option value="">Popular Cities</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Mysore">Mysore</option>
+                <option value="Mangalore">Mangalore</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Kolkata">Kolkata</option>
+                <option value="London">London</option>
+                <option value="Dubai">Dubai</option>
+                <option value="Singapore">Singapore</option>
+            </select>
+
             <button id="weatherBtn">
                 Get Weather
             </button>
-        </div>
+
+        </div></h2>
 
         <div class="weather-result">
 

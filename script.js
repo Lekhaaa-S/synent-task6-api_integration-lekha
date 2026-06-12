@@ -5,10 +5,16 @@ const temperature = document.getElementById("temperature");
 const condition = document.getElementById("condition");
 const humidity = document.getElementById("humidity");
 const wind = document.getElementById("wind");
+const cityDropdown = document.getElementById("cityDropdown");
+
 
 weatherBtn.addEventListener("click", async () => {
 
-    const city = cityInput.value.trim();
+    let city = cityInput.value.trim();
+
+    if(city === ""){
+        city = cityDropdown.value;
+    }
 
     if(city === ""){
         return;
@@ -26,8 +32,8 @@ weatherBtn.addEventListener("click", async () => {
         const longitude = geoData.results[0].longitude;
 
         const weatherResponse = await fetch(
-            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`
-        );
+            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code`
+            );
 
         const weatherData = await weatherResponse.json();
 
@@ -40,8 +46,28 @@ weatherBtn.addEventListener("click", async () => {
         wind.textContent =
             `Wind Speed: ${weatherData.current.wind_speed_10m} km/h`;
 
+        const weatherCode = weatherData.current.weather_code;
+
+        let weatherCondition = "Unknown";
+
+        if(weatherCode === 0){
+            weatherCondition = "Clear Sky";
+        }
+        else if(weatherCode <= 3){
+            weatherCondition = "Partly Cloudy";
+        }
+        else if(weatherCode <= 48){
+            weatherCondition = "Foggy";
+        }
+        else if(weatherCode <= 67){
+            weatherCondition = "Rainy";
+        }
+        else{
+            weatherCondition = "Cloudy";
+        }
+
         condition.textContent =
-            "Condition: Current Weather Available";
+        `Condition: ${weatherCondition}`;
 
     }
     catch(error){
