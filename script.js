@@ -6,7 +6,8 @@ const condition = document.getElementById("condition");
 const humidity = document.getElementById("humidity");
 const wind = document.getElementById("wind");
 const cityDropdown = document.getElementById("cityDropdown");
-
+const quoteBtn = document.getElementById("quoteBtn");
+const quoteText = document.getElementById("quoteText");
 
 weatherBtn.addEventListener("click", async () => {
 
@@ -73,6 +74,30 @@ weatherBtn.addEventListener("click", async () => {
     catch(error){
 
         console.log(error);
+
+    }
+
+});
+quoteBtn.addEventListener("click", async () => {
+
+    try{
+
+        const response = await fetch(
+            "https://dummyjson.com/quotes/random"
+        );
+
+        const data = await response.json();
+
+        quoteText.textContent =
+            `"${data.quote}" — ${data.author}`;
+
+    }
+    catch(error){
+
+        console.log(error);
+
+        quoteText.textContent =
+            "Unable to load quote. Please try again.";
 
     }
 
