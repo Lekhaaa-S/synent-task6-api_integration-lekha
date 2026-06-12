@@ -2,12 +2,22 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Segoe UI, sans-serif;
 }
 
 body{
-    background:#f4f7fb;
+    font-family:Segoe UI, sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(37,99,235,0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(14,165,233,0.18), transparent 28%),
+        #f4f7fb;
     min-height:100vh;
+    color:#0f172a;
+}
+
+button,
+input,
+select{
+    font:inherit;
 }
 
 .container{
@@ -25,22 +35,20 @@ header{
 header h1{
     color:#0f172a;
     margin-bottom:10px;
+    font-size:clamp(2rem, 4vw, 3.25rem);
 }
 
 header p{
     color:#64748b;
+    font-size:1.05rem;
 }
 
 .card{
     background:white;
-
     padding:30px;
-
     border-radius:15px;
-
     margin-bottom:25px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    box-shadow:0 10px 30px rgba(15,23,42,0.08);
 }
 
 .card h2{
@@ -52,10 +60,12 @@ header p{
     display:flex;
     gap:10px;
     margin-bottom:25px;
+    flex-wrap:wrap;
 }
 
 .search-box input{
     flex:1;
+    min-width:220px;
     padding:12px;
     border:1px solid #cbd5e1;
     border-radius:8px;
@@ -73,25 +83,26 @@ header p{
 
 .search-box button,
 .quote-box button{
-
     background:#2563eb;
-
     color:white;
-
     border:none;
-
     padding:12px 20px;
-
     border-radius:8px;
-
     cursor:pointer;
-
-    transition:0.3s;
+    transition:transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
 }
 
 .search-box button:hover,
 .quote-box button:hover{
     background:#1d4ed8;
+    transform:translateY(-1px);
+}
+
+.search-box button:disabled,
+.quote-box button:disabled{
+    opacity:0.65;
+    cursor:wait;
+    transform:none;
 }
 
 .weather-result p{
@@ -108,4 +119,42 @@ header p{
     color:#334155;
     margin-bottom:20px;
     line-height:1.6;
+}
+
+.status-message{
+    min-height:1.25rem;
+    margin:0 0 16px;
+    color:#2563eb;
+    font-size:0.95rem;
+}
+
+.status-message.error{
+    color:#dc2626;
+}
+
+@media (max-width: 720px){
+    .container{
+        width:min(92%, 760px);
+        padding:20px 0 32px;
+    }
+
+    .card{
+        padding:20px;
+        border-radius:12px;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+
+    .search-box input,
+    .search-box select,
+    .search-box button,
+    .quote-box button{
+        width:100%;
+    }
+
+    .quote{
+        font-size:1rem;
+    }
 }

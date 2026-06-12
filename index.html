@@ -17,58 +17,54 @@
         </header>
 
         <section class="card">
-        <h2><div class="search-box">
+            <h2>Weather Search</h2>
 
-            <input
-                type="text"
-                id="cityInput"
-                placeholder="Enter any city"
-            >
-            <select id="cityDropdown">
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="cityInput"
+                    placeholder="Enter any city"
+                >
 
-                <option value="">Popular Cities</option>
-                <option value="Bangalore">Bangalore</option>
-                <option value="Mysore">Mysore</option>
-                <option value="Mangalore">Mangalore</option>
-                <option value="Mumbai">Mumbai</option>
-                <option value="Delhi">Delhi</option>
-                <option value="Chennai">Chennai</option>
-                <option value="Hyderabad">Hyderabad</option>
-                <option value="Kolkata">Kolkata</option>
-                <option value="London">London</option>
-                <option value="Dubai">Dubai</option>
-                <option value="Singapore">Singapore</option>
-            </select>
+                <select id="cityDropdown">
+                    <option value="">Popular Cities</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Mysore">Mysore</option>
+                    <option value="Mangalore">Mangalore</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="London">London</option>
+                    <option value="Dubai">Dubai</option>
+                    <option value="Singapore">Singapore</option>
+                </select>
 
-            <button id="weatherBtn">
-                Get Weather
-            </button>
+                <button id="weatherBtn">Get Weather</button>
+            </div>
 
-        </div></h2>
+            <p class="status-message" id="weatherStatus" aria-live="polite"></p>
 
-        <div class="weather-result">
-
-            <h3>Weather Details</h3>
-            <p id="temperature">Temperature: --</p>
-            <p id="condition">Condition: --</p>
-            <p id="humidity">Humidity: --</p>
-            <p id="wind">Wind Speed: --</p>
-
-        </div>
+            <div class="weather-result" id="weatherResult">
+                <h3>Weather Details</h3>
+                <p id="temperature">Temperature: --</p>
+                <p id="condition">Condition: --</p>
+                <p id="humidity">Humidity: --</p>
+                <p id="wind">Wind Speed: --</p>
+            </div>
         </section>
 
         <section class="card">
-
             <h2>Daily Inspiration</h2>
+
             <div class="quote-box">
                 <p class="quote" id="quoteText">
-                    "The journey of a thousand miles begins with one step." — Lao Tzu
+                    "The journey of a thousand miles begins with one step." - Lao Tzu
                 </p>
-                <button id="quoteBtn">
-                    Get New Quote
-                </button>
+                <p class="status-message" id="quoteStatus" aria-live="polite"></p>
+                <button id="quoteBtn">Get New Quote</button>
             </div>
-
         </section>
 
     </div>
