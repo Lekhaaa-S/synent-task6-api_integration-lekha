@@ -16,58 +16,41 @@
             <p>Check current weather and get daily inspiration</p>
         </header>
 
-        <!-- Weather Section -->
-
         <section class="card">
+        <h2>Weather Lookup</h2>
+        <div class="search-box">
+            <input
+                type="text"
+                id="cityInput"
+                placeholder="Enter city name"
+            >
+            <button id="weatherBtn">
+                Get Weather
+            </button>
+        </div>
 
-            <h2>Weather Lookup</h2>
+        <div class="weather-result">
 
-            <div class="search-box">
+            <h3>Weather Details</h3>
+            <p id="temperature">Temperature: --</p>
+            <p id="condition">Condition: --</p>
+            <p id="humidity">Humidity: --</p>
+            <p id="wind">Wind Speed: --</p>
 
-                <input
-                    type="text"
-                    placeholder="Enter city name"
-                >
-
-                <button>
-                    Get Weather
-                </button>
-
-            </div>
-
-            <div class="weather-result">
-
-                <h3>Weather Details</h3>
-
-                <p>Temperature: --</p>
-                <p>Condition: --</p>
-                <p>Humidity: --</p>
-                <p>Wind Speed: --</p>
-
-            </div>
-
+        </div>
         </section>
 
-        <!-- Quote Section -->
-
         <section class="card">
-
             <h2>Daily Inspiration</h2>
-
             <div class="quote-box">
-
                 <p class="quote">
-
                     Click below to receive a motivational quote.
-
                 </p>
 
                 <button>
                     Get New Quote
                 </button>
-
             </div>
-
         </section>
 
     </div>
