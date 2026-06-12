@@ -54,35 +54,80 @@ function getWeatherCondition(weatherCode) {
 
     return "Cloudy";
 }
+cityInput.addEventListener("input", () => {
+    if(cityInput.value.trim() !== ""){
+        cityDropdown.value = "";
+    }
+});
 
+cityDropdown.addEventListener("change", () => {
+    if(cityDropdown.value !== ""){
+        cityInput.value = "";
+    }
+});
 weatherBtn.addEventListener("click", async () => {
+
     setWeatherLoading(true);
 
-    let city = cityInput.value.trim();
+    const typedCity = cityInput.value.trim();
+    const selectedCity = cityDropdown.value;
 
-    if (city === "") {
-        city = cityDropdown.value;
-    }
-    if (city === "") {
+    if (typedCity !== "" && selectedCity !== "") {
         setWeatherLoading(false);
-        showWeatherError("Please enter or select a city.");
+        showWeatherError(
+            "Please either type a city or select one from the dropdown."
+        );
         return;
     }
 
-    try{
+    let city = typedCity || selectedCity;
+
+    if (city === "") {
+        setWeatherLoading(false);
+        showWeatherError(
+            "Please enter or select a city."
+        );
+        return;
+    }
+
+    try {
 
         const geoResponse = await fetch(
-            `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`
+            `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`
         );
 
         const geoData = await geoResponse.json();
 
-        if (!geoData.results || geoData.results.length === 0) {
-            throw new Error("City not found. Please try another location.");
+        if (
+            !geoData.results ||
+            geoData.results.length === 0
+        ) {
+            throw new Error(
+                "Unable to fetch weather data. Please enter a valid city name."
+            );
         }
 
-        const latitude = geoData.results[0].latitude;
-        const longitude = geoData.results[0].longitude;
+        const cityResult = geoData.results[0];
+
+        /*
+            Extra validation:
+            Reject weak matches for random words.
+        */
+
+        const searchedCity = city.toLowerCase();
+        const returnedCity = cityResult.name.toLowerCase();
+
+        if (
+            !returnedCity.includes(searchedCity) &&
+            !searchedCity.includes(returnedCity)
+        ) {
+            throw new Error(
+                "Unable to fetch weather data. Please enter a valid city name."
+            );
+        }
+
+        const latitude = cityResult.latitude;
+        const longitude = cityResult.longitude;
 
         const weatherResponse = await fetch(
             `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code`
@@ -90,15 +135,34 @@ weatherBtn.addEventListener("click", async () => {
 
         const weatherData = await weatherResponse.json();
 
-        temperature.textContent = `Temperature: ${weatherData.current.temperature_2m} C`;
-        humidity.textContent = `Humidity: ${weatherData.current.relative_humidity_2m}%`;
-        wind.textContent = `Wind Speed: ${weatherData.current.wind_speed_10m} km/h`;
-        condition.textContent = `Condition: ${getWeatherCondition(weatherData.current.weather_code)}`;
+        temperature.textContent =
+            `Temperature: ${weatherData.current.temperature_2m} °C`;
+
+        humidity.textContent =
+            `Humidity: ${weatherData.current.relative_humidity_2m}%`;
+
+        wind.textContent =
+            `Wind Speed: ${weatherData.current.wind_speed_10m} km/h`;
+
+        condition.textContent =
+            `Condition: ${getWeatherCondition(
+                weatherData.current.weather_code
+            )}`;
 
     }
-    catch(error){
+    catch (error) {
+
         console.log(error);
-        showWeatherError(error.message || "Unable to load weather data. Please try again.");
+
+        temperature.textContent = "Temperature: --";
+        humidity.textContent = "Humidity: --";
+        wind.textContent = "Wind Speed: --";
+        condition.textContent = "Condition: --";
+
+        showWeatherError(
+            error.message ||
+            "Unable to fetch weather data. Please try again."
+        );
     }
     finally {
         setWeatherLoading(false);
