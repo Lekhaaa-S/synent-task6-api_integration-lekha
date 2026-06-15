@@ -3,8 +3,9 @@
 A responsive web application that displays real-time weather information and motivational quotes using public APIs.
 
 ## Live Demo
-
 **Website:** https://lekhaaa-s.github.io/synent-task6-api_integration-lekha/
+
+**Demo Video:** https://drive.google.com/file/d/1lGsr27crDxQ0bucYvdYwFvL58z0jPFKp/view?usp=drive_link
 
 ## Features
 
